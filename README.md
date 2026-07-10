@@ -21,6 +21,20 @@ RAG 성능 평가, 부하 테스트 기반 성능 개선, QLoRA 파인튜닝 실
 
 ---
 
+## 🟠 AI Personal Assistant
+
+자연어로 일상을 입력하면 일정·지출·투두로 분류해 계정별로 저장하는 개인 비서 SaaS 서버.
+다중 사용자 동시 접속 환경에서 병목을 직접 측정하고, 캐싱 전략을 3단계로 개선하는 부하 테스트 사이클을 구현했다.
+
+- **[ai-personal-assistant](https://github.com/HyeonBin0118/ai-personal-assistant)**
+  `FastAPI` `PostgreSQL` `pgvector` `Redis` `APScheduler` `Locust` `GPT-4o-mini` `Docker`
+  · 실제 LLM 포함 50명 동시 부하 측정 → `/input` p50 1,500ms 병목 확인
+  · 완전 일치 캐싱(Redis) 히트율 11.5% → Redis 전체 스캔 O(N) 문제 발견 → pgvector 인덱스 검색으로 교체
+  · pgvector 임베딩 캐싱 히트율 18.2%, 응답시간 no_cache 수준으로 안정화
+  · JWT 인증 + 계정별 데이터 격리 + 백그라운드 스케줄러 기반 알림 + pytest 5개 통과
+
+---
+
 ## 🟢 AI Career Assistant
 
 자소서 생성 → 면접 연습 → 음성 대화형 면접 → 평가 리포트 올인원 플랫폼
@@ -37,19 +51,7 @@ RAG 성능 평가, 부하 테스트 기반 성능 개선, QLoRA 파인튜닝 실
       - ↳ **[job-agent](https://github.com/HyeonBin0118/job-agent)** — v1, LangGraph 기반 파이프라인 설계
         `LangGraph` `FastAPI` `Streamlit` · [🚀 Demo](https://job-agent-fiyd3jcmzx92at9t7p7zq2.streamlit.app/)
 
----
 
-## 🟠 AI Personal Assistant
-
-자연어로 일상을 입력하면 일정·지출·투두로 분류해 계정별로 저장하는 개인 비서 SaaS 서버.
-다중 사용자 동시 접속 환경에서 병목을 직접 측정하고, 캐싱 전략을 3단계로 개선하는 부하 테스트 사이클을 구현했다.
-
-- **[ai-personal-assistant](https://github.com/HyeonBin0118/ai-personal-assistant)**
-  `FastAPI` `PostgreSQL` `pgvector` `Redis` `APScheduler` `Locust` `GPT-4o-mini` `Docker`
-  · 실제 LLM 포함 50명 동시 부하 측정 → `/input` p50 1,500ms 병목 확인
-  · 완전 일치 캐싱(Redis) 히트율 11.5% → Redis 전체 스캔 O(N) 문제 발견 → pgvector 인덱스 검색으로 교체
-  · pgvector 임베딩 캐싱 히트율 18.2%, 응답시간 no_cache 수준으로 안정화
-  · JWT 인증 + 계정별 데이터 격리 + 백그라운드 스케줄러 기반 알림 + pytest 5개 통과
 ---
 
 ## 🔵 ShopAI
